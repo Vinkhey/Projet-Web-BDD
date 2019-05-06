@@ -1,7 +1,0 @@
-<application>
-  <component name="GithubAccounts">
-    <account id="9eb8978b-6b19-41cb-b2d1-3cf87ae83c80" name="luca.bassi@cpnv.ch">
-      <server host="github.com" />
-    </account>
-  </component>
-</application>
