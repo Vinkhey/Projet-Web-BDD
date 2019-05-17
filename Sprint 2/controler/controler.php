@@ -157,10 +157,15 @@ function displayCart(){
 
 
 function snowLeasingRequest($snowCode){
-     require "model/snowsManager.php";
-     $snowsResults = getASnow($snowCode);
-     $_GET['action'] = "snowLeasingRequest";
-     require "view/snowLeasingRequest.php";
+    if (isset($_SESSION['userEmailAddress'])) {
+        require "model/snowsManager.php";
+        $snowsResults = getASnow($snowCode);
+        $_GET['action'] = "snowLeasingRequest";
+        require "view/snowLeasingRequest.php";
+    }
+    else{
+            require "view/login.php";
+        }
 }
 
 /**
