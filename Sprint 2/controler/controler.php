@@ -180,25 +180,32 @@ function updateCartRequest($snowCode, $snowLocationRequest){
         if (isset($_SESSION['cart'])) {
             $cartArrayTemp = $_SESSION['cart'];
         }
+
+
         require "model/cartManager.php";
         $cartArrayTemp = updateCart($cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
         $_SESSION['cart'] = $cartArrayTemp;
 
-        $test = 0;
-
-        foreach($_SESSION['cart'] as $key => $value)
+        if(!isset($_SESSION['CartErrors']))
         {
-            if($value['code'] == $snowCode and $_SESSION['updateCarResult'] == true)
+            $test = 0;
+            foreach($_SESSION['cart'] as $key => $value)
             {
-                $test++;
-                if($test > 1)
+                if($value['code'] == $snowCode and $_SESSION['updateCarResult'] == true)
                 {
-                    unset($_SESSION['cart'][$key]);
+                    $test++;
+                    if($test > 1)
+                    {
+                        unset($_SESSION['cart'][$key]);
+                    }
                 }
             }
         }
-
-
+        else
+        {
+            $_GET['action'] = "displayCart";
+            displayCart();
+        }
     }
     $_GET['action'] = "displayCart";
     displayCart();

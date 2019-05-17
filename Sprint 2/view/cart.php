@@ -24,6 +24,12 @@ ob_start();
                     <th>Code</th><th>Date</th><th>Nombre de jours</th><th>Quantité</th><th>Retirer</th>
                 </tr>
                 <?php
+                if(isset($_SESSION['CartErrors']))
+                {
+                    echo "Erreur sur la quantité demandée";
+                    echo "<br>".$_SESSION['CartErrors']."</br>";
+                    unset($_SESSION['CartErrors']);
+                }
                 // Displays cart session's content
                 $cartArray = $_SESSION['cart'];
                 foreach ($cartArray as $article){

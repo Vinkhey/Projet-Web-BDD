@@ -21,59 +21,53 @@ function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howMan
     $result = null;
     $test = null;
 
-    foreach($currentCartArray as $key => $value)
-    {
-        $test++;
-        if($value['code'] == $snowCodeToAdd)
-        {
-            if($test < 2 and $value['nbD'] == $howManyLeasingDays)
-            {
-                $result = true;
-                $test = $key;
-            }
-            else
-            {
-                $test = $key;
-                $result = null;
-            }
-        }
-    }
-
-    if($currentCartArray != null and $result == true){
-        foreach($currentCartArray as $key => $value)
-        {
-            if($value['code'] == $snowCodeToAdd and $test == $key)
-            {
-                $currentCartArrayInitialQty = $currentCartArray[$key]['qty'] += $qtyOfSnowsToAdd;
-                $currentCartArrayFinalQty = strval($currentCartArrayInitialQty);
-                $currentCartArray[$key]['qty'] = $currentCartArrayFinalQty;
-            }
-        }
-    }
-    $cartUpdated = $currentCartArray;
-    $test = 0;
-
-    foreach($cartUpdated as $key => $value)
-    {
-        if($value['code'] == $snowCodeToAdd)
-        {
+    if($qtyOfSnowsToAdd > 0) {
+        foreach ($currentCartArray as $key => $value) {
             $test++;
-            if($test > 1 and $result == true)
-            {
-                unset($cartUpdated[$test]);
-            }
-            else
-            {
-                $_SESSION['updateCarResult'] = $result;
+            if ($value['code'] == $snowCodeToAdd) {
+                if ($test < 2 and $value['nbD'] == $howManyLeasingDays) {
+                    $result = true;
+                    $test = $key;
+                } else {
+                    $test = $key;
+                    $result = null;
+                }
             }
         }
+
+        if ($currentCartArray != null and $result == true) {
+            foreach ($currentCartArray as $key => $value) {
+                if ($value['code'] == $snowCodeToAdd and $test == $key) {
+                    $currentCartArrayInitialQty = $currentCartArray[$key]['qty'] += $qtyOfSnowsToAdd;
+                    $currentCartArrayFinalQty = strval($currentCartArrayInitialQty);
+                    $currentCartArray[$key]['qty'] = $currentCartArrayFinalQty;
+                }
+            }
+        }
+        $cartUpdated = $currentCartArray;
+        $test = 0;
+
+        foreach ($cartUpdated as $key => $value) {
+            if ($value['code'] == $snowCodeToAdd) {
+                $test++;
+                if ($test > 1 and $result == true) {
+                    unset($cartUpdated[$test]);
+                } else {
+                    $_SESSION['updateCarResult'] = $result;
+                }
+            }
+        }
+
+        $newSnowLeasing = array('code' => $snowCodeToAdd, 'dateD' => Date("d-m-y"), 'nbD' => $howManyLeasingDays, 'qty' => $qtyOfSnowsToAdd);
+
+        array_push($cartUpdated, $newSnowLeasing);
+
+        return $cartUpdated;
     }
-
-    $newSnowLeasing = array('code' => $snowCodeToAdd, 'dateD' => Date("d-m-y"), 'nbD' => $howManyLeasingDays, 'qty' => $qtyOfSnowsToAdd);
-
-    array_push($cartUpdated, $newSnowLeasing);
-
-    return $cartUpdated;
+    else
+    {
+        $_SESSION['CartErrors'] = "Quantité trop élevée ou inférieure à 1, Vérifiez la disponibilité du stock";
+    }
 }
 
 //in_array https://www.php.net/manual/en/function.in-array.php
