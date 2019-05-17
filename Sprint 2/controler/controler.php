@@ -68,6 +68,12 @@ function register($registerRequest){
                 $_GET['action'] = "home";
                 require "view/home.php";
             }
+            else
+            {
+                $_GET['registerError'] = true;
+                $_GET['action'] = "register";
+                require "view/register.php";
+            }
         }else{
             $_GET['registerError'] = true;
             $_GET['action'] = "register";
@@ -179,9 +185,32 @@ function updateCartRequest($snowCode, $snowLocationRequest){
         if (isset($_SESSION['cart'])) {
             $cartArrayTemp = $_SESSION['cart'];
         }
+
+
         require "model/cartManager.php";
         $cartArrayTemp = updateCart($cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
         $_SESSION['cart'] = $cartArrayTemp;
+
+        if(!isset($_SESSION['CartErrors']))
+        {
+            $test = 0;
+            foreach($_SESSION['cart'] as $key => $value)
+            {
+                if($value['code'] == $snowCode and $_SESSION['updateCarResult'] == true)
+                {
+                    $test++;
+                    if($test > 1)
+                    {
+                        unset($_SESSION['cart'][$key]);
+                    }
+                }
+            }
+        }
+        else
+        {
+            $_GET['action'] = "displayCart";
+            displayCart();
+        }
     }
     $_GET['action'] = "displayCart";
     displayCart();
