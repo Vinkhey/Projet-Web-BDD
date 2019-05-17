@@ -12,7 +12,8 @@ ob_start();
 ?>
     <h1>S'inscrire</h1>
     <?php if (@$_GET['registerError'] == true) :?>
-    <h5><span style="color:red">Inscription refusée</span></h5>
+    <h5><span style="color:red">Inscription refusée,</span></h5>
+    <h5><span style="color:red"><?= $_SESSION['registerAccountErrors']?></span></h5>
     <?php endif ?>
     <article>
         <form class='form' method='POST' action="index.php?action=register">
