@@ -47,6 +47,7 @@ ob_start();
             </table>
             <input type="submit" value="Louer encore" class="btn btn-success" name="backToCatalog">
             <input type="submit" value="Vider le panier" class="btn btn-cancel" name="resetCart">
+            <input type="submit" value="Finaliser la location" class="btn btn-cancel" name="locationEnd">
         </form>
     </article>
 <?php
