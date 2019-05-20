@@ -43,18 +43,30 @@ function isLoginCorrect($userEmailAddress, $userPsw){
 function registerNewAccount($userEmailAddress, $userPsw){
     $result = false;
 
-    $strSeparator = '\'';
-
-    $userHashPsw = password_hash($userPsw, PASSWORD_DEFAULT);
-
-    $registerQuery = 'INSERT INTO users (`userEmailAddress`, `userHashPsw`) VALUES (' .$strSeparator . $userEmailAddress .$strSeparator . ','.$strSeparator . $userHashPsw .$strSeparator. ')';
-
-    require_once 'model/dbConnector.php';
-    $queryResult = executeQueryInsert($registerQuery);
-    if($queryResult){
-        $result = $queryResult;
+    if(verifyUserAccount($userEmailAddress)){
+        $_SESSION['registerAccountErrors'] = "cette email est déjà associer à un compte";
+        return $result;
     }
-    return $result;
+    else
+    {
+        $strSeparator = '\'';
+
+        $userHashPsw = password_hash($userPsw, PASSWORD_DEFAULT);
+
+        $registerQuery = 'INSERT INTO users (`userEmailAddress`, `userHashPsw`) VALUES (' .$strSeparator . $userEmailAddress .$strSeparator . ','.$strSeparator . $userHashPsw .$strSeparator. ')';
+
+        require_once 'model/dbConnector.php';
+        $queryResult = executeQueryInsert($registerQuery);
+        if($queryResult){
+            $result = $queryResult;
+        }
+
+        if($result == false)
+        {
+            $_SESSION['registerAccountErrors'] = "impossible de créer un compte";
+        }
+        return $result;
+    }
 }
 
 /**
@@ -75,6 +87,22 @@ function getUserType($userEmailAddress){
 
     if (count($queryResult) == 1){
         $result = $queryResult[0]['userType'];
+    }
+    return $result;
+}
+
+function verifyUserAccount($userEmailAddress)
+{
+    $result = false;
+    $strSeparator = '\'';
+
+    $getUserTypeQuery = 'SELECT userEmailAddress FROM users WHERE users.userEmailAddress =' . $strSeparator . $userEmailAddress . $strSeparator;
+
+    require_once 'model/dbConnector.php';
+    $queryResult = executeQuerySelect($getUserTypeQuery);
+
+    if ($queryResult){
+        $result = true;
     }
     return $result;
 }

@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `snows` (
 
 -- Export de données de la table snows.snows : ~9 rows (environ)
 DELETE FROM `snows`;
-/*!40000 ALTER TABLE `snows` DISABLE KEYS */;
+/*!40000 ALTER TABLE `snows` DISABLE KEYSusers */;
 INSERT INTO `snows` (`id`, `code`, `brand`, `model`, `snowLength`, `qtyAvailable`, `description`, `dailyPrice`, `photo`, `active`) VALUES
 	(1, 'B101', 'Burton', 'Custom', 160, 22, 'La board la plus fiable de tous les temps, la solution snowboard pour tous les terrains. (Homme)', 29, 'view/content/images/B101_small.jpg', 1),
 	(2, 'B126', 'Burton', 'Free Thinker', 165, 2, 'Élargissez votre vision grâce son interprétation du ride tout terrain dynamique sur la poudreuse. (Homme)', 45, 'view/content/images/B126_small.jpg', 1),
