@@ -45,9 +45,21 @@ ob_start();
                 }
                 ?>
             </table>
-            <input type="submit" value="Louer encore" class="btn btn-success" name="backToCatalog">
-            <input type="submit" value="Vider le panier" class="btn btn-cancel" name="resetCart">
-            <input type="submit" value="Finaliser la location" class="btn btn-cancel" name="locationEnd">
+            <table>
+                <tr>
+                    <td>
+                        <input type="submit" value="Louer encore" class="btn btn-success" name="backToCatalog">
+                    </td>
+                    <td>
+                        <input type="submit" value="Vider le panier" class="btn btn-cancel" name="resetCart">
+                    </td>
+            <form method="POST" action="index.php?action=endLocation">
+                    <td>
+                        <a href="index.php?action=endLocation"><input type="submit" value="Finaliser la location" class="btn btn-info"  name="locationEnd"></a>
+                    </td>
+                </tr>
+            </form>
+            </table>
         </form>
     </article>
 <?php

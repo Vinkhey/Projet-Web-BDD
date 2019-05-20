@@ -41,8 +41,8 @@ if (isset($_GET['action'])) {
       case 'displayCart':
           displayCart();
           break;
-      /*case 'locationEnd':
-          locactionEnd();*/
+      case 'endLocation':
+          endLocation();
       default :
           home();
   }

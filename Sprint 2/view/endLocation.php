@@ -16,10 +16,10 @@ ob_start();
 ?>
     <h2>Votre panier</h2>
     <article>
-        <form method="POST" action="index.php?action=displayLocation">
+        <form method="POST" action="index.php?action=displayCart">
             <table class="table">
                 <tr>
-                    <th>Code</th><th>Date</th><th>Nombre de jours</th><th>Quantité</th><th>Retirer</th>
+                    <th>Code</th><th>Date</th><th>Marque</th><th>Modèle</th><th>Prix</th><th>Nombre de jours</th><th>Quantité</th>
                 </tr>
                 <?php
                 if(isset($_SESSION['CartErrors']))
@@ -34,16 +34,17 @@ ob_start();
                     echo "<tr>";
                     echo "<td>".$article['code']."</td>";
                     echo "<td>".$article['dateD']."</td>";
+                    echo "<td>".$article['brand']."</td>";
+                    echo "<td>".$article['model']."</td>";
+                    echo "<td>".$article['dailyPrice']."</td>";
                     echo "<form method='POST' action='index.php?action=updateCartItem'>";
                     echo "<td><input type='number' name='uQty' value='".$article['qty']."' disabled></td>";
                     echo "<td><input type='number' name='uNbD' value='".$article['nbD']."' disabled></td>";
 
-                    echo "<td><a href='index.php?action=updateCartRequest&code=".$article['code']."'><img src='view/content/images/delete2.png'></a></td>";
                     echo "</form></tr>";
                 }
                 ?>
             </table>
-            <input type="submit" value="Louer encore" class="btn btn-success" name="backToCatalog">
         </form>
     </article>
 <?php
