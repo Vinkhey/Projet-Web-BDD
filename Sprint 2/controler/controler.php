@@ -218,7 +218,17 @@ function updateCartRequest($snowCode, $snowLocationRequest){
 
 function endLocation(){
     $_GET['action'] = "endLocation";
-    require "model/dbConnector.php";
-    require "view/endLocation.php";
+    require "model/LocationsManager.php";
+        if(updateLocations())
+        {
+            require "view/endLocation.php";
+        }
+        else
+        {
+            $_GET['action'] = "displayCart";
+            displayCart();
+        }
+
+
 }
 //endregion
