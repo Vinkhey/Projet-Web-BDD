@@ -19,24 +19,19 @@ ob_start();
         <form method="POST" action="index.php?action=displayCart">
             <table class="table">
                 <tr>
-                    <th>Code</th><th>Date</th><th>Marque</th><th>Modèle</th><th>Prix</th><th>Nombre de jours</th><th>Quantité</th>
+                    <th>N° Location</th><th>Code</th><th>Marque</th><th>Modèle</th><th>Prix</th><th>Quantité</th><th>Date début de location</th>
                 </tr>
                 <?php
-                if(isset($_SESSION['CartErrors']))
-                {
-                    echo "Erreur sur la quantité demandée";
-                    echo "<br>".$_SESSION['CartErrors']."</br>";
-                    unset($_SESSION['CartErrors']);
-                }
-
                 // Displays cart session's content
-                $cartArray = $_SESSION['cart'];
+                $cartArray = $_SESSION['location'];
                 foreach ($cartArray as $article){
+                    echo "<td>".$article['idLocations']."</td>";
                     echo "<td>".$article['code']."</td>";
-                    echo "<td>".$article['dateD']."</td>";
                     echo "<td>".$article['brand']."</td>";
                     echo "<td>".$article['model']."</td>";
                     echo "<td>".$article['dailyPrice']."</td>";
+                    echo "<td>".$article['qty']."</td>";
+                    echo "<td>".$article['nbd']."</td>";
                     echo "<form method='POST' action='index.php?action=updateCartItem'>";
                     echo "<td><input type='number' name='uQty' value='".$article['qty']."' disabled></td>";
                     echo "<td><input type='number' name='uNbD' value='".$article['nbD']."' disabled></td>";

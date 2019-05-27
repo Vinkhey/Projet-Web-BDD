@@ -106,3 +106,19 @@ function verifyUserAccount($userEmailAddress)
     }
     return $result;
 }
+
+function getUserId($userEmailAddress)
+{
+    $result = false;
+    $strSeparator = '\'';
+
+    $getUserIdQuery = 'SELECT idUsers FROM users WHERE users.userEmailAddress =' . $strSeparator . $userEmailAddress . $strSeparator;
+
+    require_once 'model/dbConnector.php';
+    $queryResult = executeQuerySelect($getUserIdQuery);
+
+    if (count($queryResult) == 1){
+        $result = $queryResult[0]['idUsers'];
+    }
+    return $result;
+}
