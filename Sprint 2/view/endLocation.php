@@ -28,6 +28,7 @@ ob_start();
                     echo "<br>".$_SESSION['CartErrors']."</br>";
                     unset($_SESSION['CartErrors']);
                 }
+
                 // Displays cart session's content
                 $cartArray = $_SESSION['cart'];
                 foreach ($cartArray as $article){

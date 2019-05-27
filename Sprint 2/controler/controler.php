@@ -212,6 +212,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
             displayCart();
         }
     }
+
     $_GET['action'] = "displayCart";
     displayCart();
 }
@@ -219,7 +220,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
 function endLocation(){
     $_GET['action'] = "endLocation";
     require "model/LocationsManager.php";
-        if(updateLocations())
+        if(updateLocations($_SESSION['cart']))
         {
             require "view/endLocation.php";
         }
@@ -228,7 +229,5 @@ function endLocation(){
             $_GET['action'] = "displayCart";
             displayCart();
         }
-
-
 }
 //endregion
