@@ -39,3 +39,24 @@ function getASnow($snow_code){
 
     return $snowResults;
 }
+
+function updateSnowsQuantity($snow_code)
+{
+    //echo $_GET['inputQuantity'];
+    $inputQuantity=$qtySnowsUpdate['inputQuantity'];
+  //  $qtyAvailable=$qtySnowsUpdate['qtyAvailable'];
+
+
+        $strgSeparator = '\'';
+   // require_once "view/snowLeasingRequest.php";
+   // $qtyAvailable2=$_GET['qtyAvailable'];
+  //  $inputQuantity2=$result['inputQuantity'];
+    $qtyToInsert=$qtyAvailable-$inputQuantity;
+    // Query to get the quantity available in database (get paramater in url)
+    $snowQuery2 = 'SELECT UPDATE qtyAvailable FROM snows SET INSERT INTO qtyAvailable'.$qtyToInsert.' WHERE code='.$strgSeparator.$snow_code.$strgSeparator.'AND active=1 ';
+
+    require_once 'model/dbConnector.php';
+    $snowResults2 = executeQuerySelect($snowQuery2);
+
+    return $snowResults2;
+}

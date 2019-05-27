@@ -36,10 +36,13 @@ if (isset($_GET['action'])) {
           snowLeasingRequest($_GET['code']);
           break;
       case 'updateCartRequest':
-           updateCartRequest($_GET['code'], $_POST);
+           updateCartRequest($_GET['qtyAvailable'],$_POST);
           break;
       case 'displayCart':
           displayCart();
+          break;
+      case 'updateSnowsQuantity':
+          updateSnowsQuantity($_GET['qtyAvailable'],$_POST);
           break;
       case 'endLocation':
           endLocation();

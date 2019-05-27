@@ -157,8 +157,15 @@ function displayASnow($snow_code){
 
 //region Cart Management
 function displayCart(){
+    require_once "Model/snowsManager.php";
+  //  snowLeasingRequest();
     $_GET['action'] = "cart";
+
+
+
+
     require "view/cart.php";
+
 }
 
 
@@ -180,6 +187,8 @@ function snowLeasingRequest($snowCode){
  * @param $snowLocationRequest
  */
 function updateCartRequest($snowCode, $snowLocationRequest){
+    require "model/snowsManager";
+    updateSnowsQuantity();
     $cartArrayTemp = array();
     if(($snowLocationRequest) AND ($snowCode)) {
         if (isset($_SESSION['cart'])) {
@@ -188,6 +197,8 @@ function updateCartRequest($snowCode, $snowLocationRequest){
 
 
         require "model/cartManager.php";
+
+
         $cartArrayTemp = updateCart($cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
         $_SESSION['cart'] = $cartArrayTemp;
 
@@ -213,21 +224,37 @@ function updateCartRequest($snowCode, $snowLocationRequest){
         }
     }
     $_GET['action'] = "displayCart";
-    displayCart();
+    require_once "model/snowsManager.php";
+
+
+
+    //function updateSnowsQuantity(){
+        $_GET['action'] = "displayCart";
+       // require "model/snowsManager.php";
+
+
+
+   // updateSnowsQuantity();
+    //displayCart();
 }
 
-function endLocation(){
+function endLocation()
+{
     $_GET['action'] = "endLocation";
     require "model/LocationsManager.php";
-        if(updateLocations())
-        {
-            require "view/endLocation.php";
-        }
-        else
-        {
-            $_GET['action'] = "displayCart";
-            displayCart();
-        }
+    if (updateLocations()) {
+        require "view/endLocation.php";
+    } else {
+        $_GET['action'] = "displayCart";
+        displayCart();
+    }
+
+
+    function updateSnowsQuantity()
+    {
+        $_GET['action'] = "displayCart";
+        require "model/snowsManager.php";
+    }
 
 
 }
