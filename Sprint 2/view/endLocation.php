@@ -32,7 +32,6 @@ ob_start();
                 // Displays cart session's content
                 $cartArray = $_SESSION['cart'];
                 foreach ($cartArray as $article){
-                    echo "<tr>";
                     echo "<td>".$article['code']."</td>";
                     echo "<td>".$article['dateD']."</td>";
                     echo "<td>".$article['brand']."</td>";
@@ -41,7 +40,6 @@ ob_start();
                     echo "<form method='POST' action='index.php?action=updateCartItem'>";
                     echo "<td><input type='number' name='uQty' value='".$article['qty']."' disabled></td>";
                     echo "<td><input type='number' name='uNbD' value='".$article['nbD']."' disabled></td>";
-
                     echo "</form></tr>";
                 }
                 ?>
