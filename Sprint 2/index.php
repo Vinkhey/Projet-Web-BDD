@@ -43,6 +43,13 @@ if (isset($_GET['action'])) {
           break;
       case 'endLocation':
           endLocation();
+          break;
+      case 'managementReturn':
+          managementReturn();
+          break;
+      case 'managementLocation':
+          managementLocation();
+          break;
       default :
           home();
   }
