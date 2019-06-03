@@ -35,14 +35,14 @@ ob_start();
                 }*/
                 ?>
             </table>
-            <table>
-                <tr>
-                   <td>
-                       <input type="submit" value="Vue d'ensemble" class="btn btn-success" name="vueDEnsemble">
-                   </td>
-                </tr>
-            </table>
         </form>
+        <table>
+            <tr>
+                <td>
+                    <a href="index.php?action=managementLocation"> <input type="submit" value="Vue d'ensemble" class="btn btn-success" name="vueDEnsemble"></a>
+                </td>
+            </tr>
+        </table>
     </article>
 <?php
 $content = ob_get_clean();

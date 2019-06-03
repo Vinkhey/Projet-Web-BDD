@@ -35,14 +35,14 @@ ob_start();
             }*/
             ?>
         </table>
-        <table>
-            <tr>
-                <td>
-                    <a href="index.php?action=managementReturn"><input type="submit" value="Finaliser" class="btn btn-info"  name="Finalisation"></a>
-                </td>
-            </tr>
-        </table>
     </form>
+    <table>
+        <tr>
+            <td>
+                <a href="index.php?action=managementReturn"><input type="submit" value="Finaliser" class="btn btn-info"  name="Finalisation"></a>
+            </td>
+        </tr>
+    </table>
 </article>
 <?php
 $content = ob_get_clean();
