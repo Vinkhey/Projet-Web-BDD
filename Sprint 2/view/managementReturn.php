@@ -35,6 +35,13 @@ ob_start();
                 }*/
                 ?>
             </table>
+            <table>
+                <tr>
+                   <td>
+                       <input type="submit" value="Vue d'ensemble" class="btn btn-success" name="vueDEnsemble">
+                   </td>
+                </tr>
+            </table>
         </form>
     </article>
 <?php
