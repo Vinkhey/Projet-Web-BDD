@@ -6,11 +6,15 @@
 
         if($cartInfo != null) {
             foreach ($cartInfo as $key => $value) {
-                $snowLocationStart = $cartInfo[$key]['dateD'];
+                $dateT = $cartInfo[$key]['dateD'];
+                $snowLocationStart = date($dateT);
                 $idSnows = $cartInfo[$key]['idSnows'];
-                $snowLocationEnd = $snowLocationStart;
+                $quantity = $cartInfo[$key]['qty'];
+                $numberOfDays = $cartInfo[$key]['nbD'];
+                $convert = date('y-m-d', strtotime($dateT));
+                $snowLocationEnd = date('y-m-d', strtotime($convert. " + {$numberOfDays} days"));
 
-                $registerQuery = 'INSERT INTO locations (idSnows, idUsers,`DateDebut`, `DateFin`) VALUES ('. $strSeparator . $idSnows .$strSeparator .','. $strSeparator . $userId .$strSeparator .','. $strSeparator . $snowLocationStart .$strSeparator . ','.$strSeparator . $snowLocationEnd .$strSeparator. ')';
+                $registerQuery = 'INSERT INTO locations (idSnows, idUsers,`DateDebut`, `DateFin`, Quantité) VALUES ('. $strSeparator . $idSnows .$strSeparator .','. $strSeparator . $userId .$strSeparator .','. $strSeparator . $snowLocationStart .$strSeparator . ','.$strSeparator . $snowLocationEnd .$strSeparator. ','.$strSeparator . $quantity .$strSeparator.')';
 
                 require_once 'model/dbConnector.php';
                 $queryResult = executeQueryInsert($registerQuery);
@@ -18,8 +22,6 @@
                 if($queryResult){
                     $result = $queryResult;
                 }
-
-                return $queryResult;
             }
         }
 
@@ -31,17 +33,15 @@
         $result = false;
         $strSeparator = '\'';
 
-        $getUserIdQuery = 'SELECT code, brand, model, dailyPrice, dateDebut, idLocations FROM snows INNER JOIN locations ON locations.idLocations = snows.idSnows INNER JOIN users ON locations.idUsers = users.idUsers WHERE users.idUsers = ('. $strSeparator . $userId .$strSeparator. ')';
+        $getUserIdQuery = 'SELECT code, brand, model, dailyPrice, dateDebut, idLocations, Quantité FROM snows INNER JOIN locations ON locations.idSnows = snows.idSnows INNER JOIN users ON locations.idUsers = users.idUsers WHERE users.idUsers = ('. $strSeparator . $userId .$strSeparator. ')';
 
         require_once 'model/dbConnector.php';
         $queryResult = executeQuerySelect($getUserIdQuery);
 
         if (count($queryResult) > 1)
         {
-            foreach($queryResult as $key => $value)
-            {
-                $result = $queryResult[$key];
-            }
+            $result = $queryResult;
+
         }
         else
         {

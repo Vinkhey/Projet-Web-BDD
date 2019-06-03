@@ -222,24 +222,18 @@ function updateCartRequest($snowCode, $snowLocationRequest){
 function endLocation(){
     $_GET['action'] = "endLocation";
     require "model/LocationsManager.php";
-        if(!isset($_SESSION['location']) and )
+        if(isset($_SESSION['cart']))
         {
-            if(updateLocations($_SESSION['cart'], $_SESSION['userId']))
-            {
-                $_SESSION['location'] = getLocations($_SESSION['userId']);
-                $_SESSION['location'] = 'test';
-                require "view/endLocation.php";
-            }
-            else
-            {
-                $_GET['action'] = "displayCart";
-                displayCart();
-            }
+            updateLocations($_SESSION['cart'], $_SESSION['userId']);
+            $_SESSION['location'] = getLocations($_SESSION['userId']);
+            unset($_SESSION['cart']);
+            require "view/endLocation.php";
+
         }
         else
         {
-            $_GET['action'] = "displayCart";
-            displayCart();
+            $_SESSION['location'] = getLocations($_SESSION['userId']);
+            require "view/endLocation.php";
         }
 }
 //endregion

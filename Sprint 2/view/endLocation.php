@@ -14,7 +14,7 @@ $title = 'Rent A Snow - Location effectuée';
 
 ob_start();
 ?>
-    <h2>Votre panier</h2>
+    <h2>Vos locations</h2>
     <article>
         <form method="POST" action="index.php?action=displayCart">
             <table class="table">
@@ -30,11 +30,11 @@ ob_start();
                     echo "<td>".$article['brand']."</td>";
                     echo "<td>".$article['model']."</td>";
                     echo "<td>".$article['dailyPrice']."</td>";
-                    echo "<td>".$article['qty']."</td>";
-                    echo "<td>".$article['nbd']."</td>";
+                    echo "<td>".$article['Quantité']."</td>";
+                    echo "<td>".$article['dateDebut']."</td>";
                     echo "<form method='POST' action='index.php?action=updateCartItem'>";
-                    echo "<td><input type='number' name='uQty' value='".$article['qty']."' disabled></td>";
-                    echo "<td><input type='number' name='uNbD' value='".$article['nbD']."' disabled></td>";
+                    echo "<td><input type='number' name='uQty' value='".$article['Quantité']."' disabled></td>";
+                    echo "<td><input type='number' name='uNbD' value='".$article['dateDebut']."' disabled></td>";
                     echo "</form></tr>";
                 }
                 ?>
