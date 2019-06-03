@@ -222,4 +222,9 @@ function endLocation(){
         require "view/endLocation.php";
     }
 
+function returnLocation(){
+    $_GET['action'] = "endLocation";
+    require "model/dbConnector.php";
+    require "view/endLocation.php";
+}
 //endregion
