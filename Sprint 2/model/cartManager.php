@@ -17,9 +17,10 @@
  * @return array
  */
 
-function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howManyLeasingDays){
+function updateCart($snowId ,$currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howManyLeasingDays){
     $result = null;
     $test = null;
+    $timestamp = time();
 
     if($qtyOfSnowsToAdd > 0) {
         foreach ($currentCartArray as $key => $value) {
@@ -53,12 +54,12 @@ function updateCart($currentCartArray, $snowCodeToAdd, $qtyOfSnowsToAdd, $howMan
                 if ($test > 1 and $result == true) {
                     unset($cartUpdated[$test]);
                 } else {
-                    $_SESSION['updateCarResult'] = $result;
+                    $_SESSION['updateCartResult'] = $result;
                 }
             }
         }
 
-        $newSnowLeasing = array('code' => $snowCodeToAdd, 'dateD' => Date("d-m-y"), 'nbD' => $howManyLeasingDays, 'qty' => $qtyOfSnowsToAdd);
+        $newSnowLeasing = array('idSnows' => $snowId, 'code' => $snowCodeToAdd, 'dateD' => Date("y-m-d", $timestamp), 'nbD' => $howManyLeasingDays, 'qty' => $qtyOfSnowsToAdd);
 
         array_push($cartUpdated, $newSnowLeasing);
 
