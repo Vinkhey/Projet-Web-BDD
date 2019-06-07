@@ -6,13 +6,11 @@
 
         if($cartInfo != null) {
             foreach ($cartInfo as $key => $value) {
-                $dateT = $cartInfo[$key]['dateD'];
-                $snowLocationStart = date($dateT);
+                $snowLocationStart = $cartInfo[$key]['dateD'];
+                $numberOfDays = $cartInfo[$key]['nbD'];
                 $idSnows = $cartInfo[$key]['idSnows'];
                 $quantity = $cartInfo[$key]['qty'];
-                $numberOfDays = $cartInfo[$key]['nbD'];
-                $convert = date('y-m-d', strtotime($dateT));
-                $snowLocationEnd = date('y-m-d', strtotime($convert. " + {$numberOfDays} days"));
+                $snowLocationEnd = date( 'y-m-d', strtotime($snowLocationStart. " + {$numberOfDays} days"));
 
                 $registerQuery = 'INSERT INTO locations (idSnows, idUsers,`DateDebut`, `DateFin`, Quantité) VALUES ('. $strSeparator . $idSnows .$strSeparator .','. $strSeparator . $userId .$strSeparator .','. $strSeparator . $snowLocationStart .$strSeparator . ','.$strSeparator . $snowLocationEnd .$strSeparator. ','.$strSeparator . $quantity .$strSeparator.')';
 
@@ -22,6 +20,8 @@
                 if($queryResult){
                     $result = $queryResult;
                 }
+
+                return $queryResult;
             }
         }
 
@@ -40,8 +40,10 @@
 
         if (count($queryResult) > 1)
         {
-            $result = $queryResult;
-
+            foreach($queryResult as $key => $value)
+            {
+                $result = $queryResult[$key];
+            }
         }
         else
         {

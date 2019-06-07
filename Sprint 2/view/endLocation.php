@@ -14,7 +14,7 @@ $title = 'Rent A Snow - Location effectuée';
 
 ob_start();
 ?>
-    <h2>Vos locations</h2>
+    <h2>Votre panier</h2>
     <article>
         <form method="POST" action="index.php?action=displayCart">
             <table class="table">
