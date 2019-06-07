@@ -32,7 +32,7 @@ function getASnow($snow_code){
     $strgSeparator = '\'';
 
     // Query to get the selected snow. The active code must be set to 1 to display only snows to display. It avoids possibilty to user selecting a wrong code (get paramater in url)
-    $snowQuery = 'SELECT code, brand, model, snowLength, dailyPrice, qtyAvailable, description, photo FROM snows WHERE code='.$strgSeparator.$snow_code.$strgSeparator.'AND active=1';
+    $snowQuery = 'SELECT idSnows, code, brand, model, snowLength, dailyPrice, qtyAvailable, description, photo FROM snows WHERE code='.$strgSeparator.$snow_code.$strgSeparator.'AND active=1';
 
     require_once 'model/dbConnector.php';
     $snowResults = executeQuerySelect($snowQuery);
