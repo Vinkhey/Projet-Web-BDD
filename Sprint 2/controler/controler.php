@@ -93,9 +93,7 @@ function createSession($userEmailAddress){
     $_SESSION['userEmailAddress'] = $userEmailAddress;
     //set user type in Session
     $userType = getUserType($userEmailAddress);
-    $userId = getUserId($userEmailAddress);
     $_SESSION['userType'] = $userType;
-    $_SESSION['userId'] = $userId;
 }
 
 /**
@@ -163,11 +161,11 @@ function displayCart(){
     require "view/cart.php";
 }
 
+
 function snowLeasingRequest($snowCode){
     if (isset($_SESSION['userEmailAddress'])) {
         require "model/snowsManager.php";
         $snowsResults = getASnow($snowCode);
-        $_SESSION['snowId'] = $snowsResults['0']['idSnows'];
         $_GET['action'] = "snowLeasingRequest";
         require "view/snowLeasingRequest.php";
     }
@@ -190,7 +188,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
 
 
         require "model/cartManager.php";
-        $cartArrayTemp = updateCart($_SESSION['snowId'],$cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
+        $cartArrayTemp = updateCart($cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
         $_SESSION['cart'] = $cartArrayTemp;
 
         if(!isset($_SESSION['CartErrors']))
@@ -198,7 +196,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
             $test = 0;
             foreach($_SESSION['cart'] as $key => $value)
             {
-                if($value['code'] == $snowCode and isset($_SESSION['updateCartResult']) and $_SESSION['updateCartResult'] == true)
+                if($value['code'] == $snowCode and $_SESSION['updateCarResult'] == true)
                 {
                     $test++;
                     if($test > 1)
@@ -214,7 +212,6 @@ function updateCartRequest($snowCode, $snowLocationRequest){
             displayCart();
         }
     }
-
     $_GET['action'] = "displayCart";
     displayCart();
 }
@@ -222,18 +219,16 @@ function updateCartRequest($snowCode, $snowLocationRequest){
 function endLocation(){
     $_GET['action'] = "endLocation";
     require "model/LocationsManager.php";
-        if(isset($_SESSION['cart']))
+        if(updateLocations())
         {
-            updateLocations($_SESSION['cart'], $_SESSION['userId']);
-            $_SESSION['location'] = getLocations($_SESSION['userId']);
-            unset($_SESSION['cart']);
             require "view/endLocation.php";
-
         }
         else
         {
-            $_SESSION['location'] = getLocations($_SESSION['userId']);
-            require "view/endLocation.php";
+            $_GET['action'] = "displayCart";
+            displayCart();
         }
+
+
 }
 //endregion
