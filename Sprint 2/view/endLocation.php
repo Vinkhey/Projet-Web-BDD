@@ -33,8 +33,8 @@ ob_start();
                     echo "<td>".$article['Quantité']."</td>";
                     echo "<td>".$article['dateDebut']."</td>";
                     echo "<form method='POST' action='index.php?action=updateCartItem'>";
-                    echo "<td><input type='number' name='uQty' value='".$article['Quantité']."' disabled></td>";
-                    echo "<td><input type='number' name='uNbD' value='".$article['dateDebut']."' disabled></td>";
+                    //echo "<td><input type='number' name='uQty' value='".$article['Quantité']."' disabled></td>";
+                    //echo "<td><input type='number' name='uNbD' value='".$article['dateDebut']."' disabled></td>";
                     echo "</form></tr>";
                 }
                 ?>
