@@ -16,13 +16,13 @@
 
                 require_once 'model/dbConnector.php';
                 $queryResult = executeQueryInsert($registerQuery);
-
-                if($queryResult){
-                    $result = $queryResult;
-                }
-
-                return $queryResult;
             }
+
+            if($queryResult){
+                $result = $queryResult;
+            }
+
+            return $queryResult;
         }
 
         return $result;
@@ -49,6 +49,6 @@
         {
             $result = $queryResult;
         }
-        return $result;
+        return $queryResult;
     }
 ?>
