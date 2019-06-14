@@ -51,4 +51,33 @@
         }
         return $queryResult;
     }
+
+function decreaseSnowsStock($cartInfo)
+{
+    $result = false;
+    $strSeparator = '\'';
+
+    if($cartInfo != null) {
+        foreach ($cartInfo as $key => $value) {
+            $snowLocationStart = $cartInfo[$key]['dateD'];
+            $numberOfDays = $cartInfo[$key]['nbD'];
+            $idSnows = $cartInfo[$key]['idSnows'];
+            $quantity = $cartInfo[$key]['qty'];
+            $snowLocationEnd = date( 'y-m-d', strtotime($snowLocationStart. " + {$numberOfDays} days"));
+
+            $registerQuery = 'INSERT INTO snows (idSnows, idUsers,`DateDebut`, `DateFin`, Quantité) VALUES ('. $strSeparator . $idSnows .$strSeparator .','. $strSeparator . $userId .$strSeparator .','. $strSeparator . $snowLocationStart .$strSeparator . ','.$strSeparator . $snowLocationEnd .$strSeparator. ','.$strSeparator . $quantity .$strSeparator.')';
+
+            require_once 'model/dbConnector.php';
+            $queryResult = executeQueryInsert($registerQuery);
+        }
+
+        if($queryResult){
+            $result = $queryResult;
+        }
+
+        return $queryResult;
+    }
+
+    return $result;
+}
 ?>

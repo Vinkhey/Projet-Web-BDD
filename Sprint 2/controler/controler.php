@@ -228,6 +228,9 @@ function endLocation(){
             $_SESSION['location'] = getLocations($_SESSION['userId']);
             unset($_SESSION['cart']);
             if(isset($_SESSION['location']))
+            {
+                decreaseSnowsStock($_SESSION['location']);
+            }
             require "view/endLocation.php";
 
         }
