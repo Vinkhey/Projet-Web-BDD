@@ -237,4 +237,17 @@ function endLocation(){
             require "view/endLocation.php";
         }
 }
+
+function managementReturn(){
+    $_GET['action'] = "managementReturn";
+    require "model/dbConnector.php";
+    require "view/managementReturn.php";
+}
+
+function managementLocation()
+{
+    $_GET['action'] = "managementLocation";
+    require "model/dbConnector.php";
+    require "view/managementLocation.php";
+}
 //endregion
