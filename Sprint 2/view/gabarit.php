@@ -87,7 +87,9 @@
                                 <?php if(isset($_SESSION['cart'])) :?>
                                     <li><a href="index.php?action=displayCart"><img src="view/content/images/cart.png">  <?=  count($_SESSION['cart']);?> snow(s)</a></li>
                                 <?php endif; ?>
+                                <?php if(isset($_SESSION['location'])) :?>
                                 <li><a href="index.php?action=endLocation"> Vos locations </a></li>
+                                <?php endif; ?>
                                 <?php if(isset($_SESSION['location'])) :?>
                                 <li> <a href="index.php?action=managementLocation">Gestion des location</a></li>
                                 <?php endif; ?>

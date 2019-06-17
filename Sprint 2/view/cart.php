@@ -19,17 +19,19 @@ ob_start();
     <h2>Votre panier</h2>
     <article>
         <form method="POST" action="index.php?action=displaySnows">
+            <?php
+                if(isset($_SESSION['LocationErrors']))
+                {
+                    echo "La quantité demandée est supérieure au stock !";
+                    unset($_SESSION['LocationErrors']);
+                }
+            ?>
+
             <table class="table">
                 <tr>
                     <th>Code</th><th>Date</th><th>Nombre de jours</th><th>Quantité</th><th>Retirer</th>
                 </tr>
                 <?php
-                if(isset($_SESSION['CartErrors']))
-                {
-                    echo "Erreur sur la quantité demandée";
-                    echo "<br>".$_SESSION['CartErrors']."</br>";
-                    unset($_SESSION['CartErrors']);
-                }
                 // Displays cart session's content
                 $cartArray = $_SESSION['cart'];
                 foreach ($cartArray as $article){

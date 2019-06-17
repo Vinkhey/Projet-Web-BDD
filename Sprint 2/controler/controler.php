@@ -210,8 +210,8 @@ function updateCartRequest($snowCode, $snowLocationRequest){
         }
         else
         {
-            $_GET['action'] = "displayCart";
-            displayCart();
+            $_GET['action'] = "snowLeasingRequest";
+            require "view/snowLeasingRequest.php";
         }
     }
 
@@ -224,13 +224,19 @@ function endLocation(){
     require "model/LocationsManager.php";
         if(isset($_SESSION['cart']))
         {
-            updateLocations($_SESSION['cart'], $_SESSION['userId']);
-            $_SESSION['location'] = getLocations($_SESSION['userId']);
-            unset($_SESSION['cart']);
-            if(isset($_SESSION['location']))
+            $result = updateLocations($_SESSION['cart'], $_SESSION['userId']);
+            if($result != false)
             {
-                decreaseSnowsStock($_SESSION['location']);
+                $_SESSION['location'] = getLocations($_SESSION['userId']);
+                unset($_SESSION['cart']);
             }
+            else
+            {
+                $_SESSION['LocationErrors'] = true;
+                $_GET['action'] = "cart";
+                require "view/cart.php";
+            }
+
             require "view/endLocation.php";
 
         }
