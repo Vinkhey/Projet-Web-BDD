@@ -15,6 +15,19 @@ $title = 'Rent A Snow - Gestion des locations';
 ob_start();
 ?>
     <h2>Gestion des retours</h2>
+    <table>
+        <tr>
+            <td>Location: </td>
+            <td>Email: </td>
+        </tr>
+        <tr>
+            <td>Prise: </td>
+            <td>Retour: </td>
+        </tr>
+        <tr>
+            <td>Statut: </td>
+        </tr>
+    </table>
     <article>
         <form method="POST" action="index.php?action=displayCart">
             <table class="table" border="1px">
