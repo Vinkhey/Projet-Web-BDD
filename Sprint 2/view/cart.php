@@ -19,30 +19,36 @@ ob_start();
     <h2>Votre panier</h2>
     <article>
         <form method="POST" action="index.php?action=displaySnows">
+            <?php
+                if(isset($_SESSION['LocationErrors']))
+                {
+                    echo "La quantité demandée est supérieure au stock !";
+                    unset($_SESSION['LocationErrors']);
+                }
+            ?>
+
             <table class="table">
                 <tr>
                     <th>Code</th><th>Date</th><th>Nombre de jours</th><th>Quantité</th><th>Retirer</th>
                 </tr>
                 <?php
-                if(isset($_SESSION['CartErrors']))
-                {
-                    echo "Erreur sur la quantité demandée";
-                    echo "<br>".$_SESSION['CartErrors']."</br>";
-                    unset($_SESSION['CartErrors']);
-                }
-                // Displays cart session's content
-                $cartArray = $_SESSION['cart'];
-                foreach ($cartArray as $article){
-                    echo "<tr>";
-                    echo "<td>".$article['code']."</td>";
-                    echo "<td>".$article['dateD']."</td>";
-                    echo "<form method='POST' action='index.php?action=updateCartItem'>";
-                    echo "<td><input type='number' name='uNbD' value='".$article['nbD']."' disabled></td>";
-                    echo "<td><input type='number' name='uQty' value='".$article['qty']."' disabled></td>";
+                    // Displays cart session's content
+                    if(isset($_SESSION['cart']))
+                    {
+                        $cartArray = $_SESSION['cart'];
+                        foreach ($cartArray as $article => $value){
+                            echo "<tr>";
+                            echo "<td>".$value['code']."</td>";
+                            echo "<td>".$value['dateD']."</td>";
+                            echo "<form method='POST' action='index.php?action=updateCartItem'>";
+                            echo "<td><input type='number' name='uNbD' value='".$value['nbD']."' disabled></td>";
+                            echo "<td><input type='number' name='uQty' value='".$value['qty']."' disabled></td>";
 
-                    echo "<td><a href='index.php?action=updateCartRequest&code=".$article['code']."'><img src='view/content/images/delete2.png'></a></td>";
-                    echo "</form></tr>";
-                }
+                            echo "<td><a href='index.php?action=updateCartRequest&code=".$article['code']."&delete=".$article."'><img src='view/content/images/delete2.png'></a></td>";
+                            echo "</form></tr>";
+                        }
+
+                    }
                 ?>
             </table>
             <table>

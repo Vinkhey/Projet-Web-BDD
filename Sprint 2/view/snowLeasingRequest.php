@@ -17,6 +17,14 @@ ob_start();
 ?>
 <h2>Demande de location</h2>
 <article>
+    <?php
+        if(isset($_SESSION['CartErrors']))
+        {
+            echo "Quantité trop élevée ou inférieure à 1, Vérifiez la disponibilité du stock";
+            unset($_SESSION['CartErrors']);
+        }
+    ?>
+
     <h4>Votre choix</h4>
     <table class="table">
         <tr>
@@ -28,21 +36,21 @@ ob_start();
             <th>En stock</th>
         </tr>
         <tr>
-            <?php
-            foreach ($snowsResults as $result) : ?>
-                <td><?= $result['code']; ?></td>
-                <td><?= $result['brand']; ?></td>
-                <td><?= $result['model']; ?></td>
-                <td><?= $result['snowLength']; ?> cm</td>
-                <td>CHF <?= $result['dailyPrice']; ?>.- par jour</td> <!-- Prices are not float -->
-                <td><?= $result['qtyAvailable']; ?></td>
-            <?php endforeach;?>
+        <?php if(isset($snowsResults)):?>
+        <?php foreach ($snowsResults as $result) : ?>
+            <td><?= $result['code']; ?></td>
+            <td><?= $result['brand']; ?></td>
+            <td><?= $result['model']; ?></td>
+            <td><?= $result['snowLength']; ?> cm</td>
+            <td>CHF <?= $result['dailyPrice']; ?>.- par jour</td> <!-- Prices are not float -->
+            <td><?= $result['qtyAvailable']; ?></td>
+        <?php endforeach;?>
+        <?php endif; ?>
         </tr>
     </table>
     <br/>
     <h4>Votre demande</h4>
-    <form class="form" method="POST" action="index.php?action=updateCartRequest&code=<?= $result['code']; ?>">
-
+    <form class="form" method="POST" action="index.php?action=updateCartRequest&code=<?php if(isset($result)):?><?= $result['code']; ?><?php endif; ?>">
         <table class="table">
             <tr>
                 <td>Quantité : </td><td><input type="number" placeholder="Entrez la quantité" name="inputQuantity" required  value="" required><td>
@@ -57,6 +65,7 @@ ob_start();
         </table>
     </form>
 </article>
+
 <?php
 $content = ob_get_clean();
 require 'gabarit.php';

@@ -183,35 +183,79 @@ function snowLeasingRequest($snowCode){
  */
 function updateCartRequest($snowCode, $snowLocationRequest){
     $cartArrayTemp = array();
+    if(isset($_GET['delete']))
+    {
+        unset($_SESSION['cart'][$_GET['delete']]);
+
+        if($_SESSION['cart'] == null)
+        {
+            displaySnows();
+        }
+    }
+
     if(($snowLocationRequest) AND ($snowCode)) {
         if (isset($_SESSION['cart'])) {
             $cartArrayTemp = $_SESSION['cart'];
         }
 
+        require_once "model/LocationsManager.php";
+        $result = getSnowsStock($_SESSION['snowId']);
 
-        require "model/cartManager.php";
-        $cartArrayTemp = updateCart($_SESSION['snowId'],$cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
-        $_SESSION['cart'] = $cartArrayTemp;
-
-        if(!isset($_SESSION['CartErrors']))
+        if($result != false)
         {
-            $test = 0;
-            foreach($_SESSION['cart'] as $key => $value)
+            $quantity = $result[0]['qtyAvailable'] - $snowLocationRequest['inputQuantity'];
+            if($quantity < 0)
             {
-                if($value['code'] == $snowCode and isset($_SESSION['updateCartResult']) and $_SESSION['updateCartResult'] == true)
+                $_SESSION['CartErrors'] = true;
+                snowLeasingRequest($_GET['code']);
+            }
+            else
+            {
+                if(isset($_SESSION['cart']) AND $_SESSION['cart'] != null)
                 {
-                    $test++;
-                    if($test > 1)
+                    $testQuantityCart = $_SESSION['cart'][0]['qty'];
+                }
+                else
+                {
+                    $testQuantityCart = 1;
+                }
+
+                if($testQuantityCart > $quantity)
+                {
+                    $_SESSION['CartErrors'] = true;
+                    snowLeasingRequest($_GET['code']);
+                }
+                else
+                {
+                    require "model/cartManager.php";
+                    $cartArrayTemp = updateCart($_SESSION['snowId'],$cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
+                    $_SESSION['cart'] = $cartArrayTemp;
+
+                    if(!isset($_SESSION['CartErrors']))
                     {
-                        unset($_SESSION['cart'][$key]);
+                        $test = 0;
+                        foreach($_SESSION['cart'] as $key => $value)
+                        {
+                            if($value['code'] == $snowCode and isset($_SESSION['updateCartResult']) and $_SESSION['updateCartResult'] == true)
+                            {
+                                $test++;
+                                if($test > 1)
+                                {
+                                    unset($_SESSION['cart'][$key]);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        snowLeasingRequest($_GET['code']);
                     }
                 }
             }
         }
         else
         {
-            $_GET['action'] = "displayCart";
-            displayCart();
+            snowLeasingRequest($_GET['code']);
         }
     }
 
@@ -224,13 +268,19 @@ function endLocation(){
     require "model/LocationsManager.php";
         if(isset($_SESSION['cart']))
         {
-            updateLocations($_SESSION['cart'], $_SESSION['userId']);
-            $_SESSION['location'] = getLocations($_SESSION['userId']);
-            unset($_SESSION['cart']);
-            if(isset($_SESSION['location']))
+            $result = updateLocations($_SESSION['cart'], $_SESSION['userId']);
+            if($result != false)
             {
-                decreaseSnowsStock($_SESSION['location']);
+                $_SESSION['location'] = getLocations($_SESSION['userId']);
+                unset($_SESSION['cart']);
             }
+            else
+            {
+                $_SESSION['LocationErrors'] = true;
+                $_GET['action'] = "cart";
+                require "view/cart.php";
+            }
+
             require "view/endLocation.php";
 
         }
