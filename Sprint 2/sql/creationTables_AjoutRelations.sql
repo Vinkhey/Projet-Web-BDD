@@ -23,6 +23,9 @@ CREATE TABLE IF NOT EXISTS locations (
     dateFin date NOT NULL
 );
 
+alter table locations 
+add Quantité int;
+
 /*Crée un index référençant la table "Users" pour créer plusieurs clés étrangères*/
 CREATE INDEX idx_idUsers ON  locations(idUsers);
 

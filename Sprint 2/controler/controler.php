@@ -227,6 +227,10 @@ function endLocation(){
             updateLocations($_SESSION['cart'], $_SESSION['userId']);
             $_SESSION['location'] = getLocations($_SESSION['userId']);
             unset($_SESSION['cart']);
+            if(isset($_SESSION['location']))
+            {
+                decreaseSnowsStock($_SESSION['location']);
+            }
             require "view/endLocation.php";
 
         }
@@ -235,5 +239,18 @@ function endLocation(){
             $_SESSION['location'] = getLocations($_SESSION['userId']);
             require "view/endLocation.php";
         }
+}
+
+function managementReturn(){
+    $_GET['action'] = "managementReturn";
+    require "model/dbConnector.php";
+    require "view/managementReturn.php";
+}
+
+function managementLocation()
+{
+    $_GET['action'] = "managementLocation";
+    require "model/dbConnector.php";
+    require "view/managementLocation.php";
 }
 //endregion

@@ -14,7 +14,7 @@ $title = 'Rent A Snow - Gestion des locations';
 
 ob_start();
 ?>
-<h2>Gestion des locations</h2>
+<h2>Gestion des locations en cours</h2>
 <article>
     <form method="POST" action="index.php?action=displayCart">
         <table class="table" border="1px">
