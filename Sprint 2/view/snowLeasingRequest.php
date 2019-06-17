@@ -20,9 +20,8 @@ ob_start();
     <?php
         if(isset($_SESSION['CartErrors']))
         {
-        echo "Erreur sur la quantité demandée";
-        echo "<br>".$_SESSION['CartErrors']."</br>";
-        unset($_SESSION['CartErrors']);
+            echo "Quantité trop élevée ou inférieure à 1, Vérifiez la disponibilité du stock";
+            unset($_SESSION['CartErrors']);
         }
     ?>
 

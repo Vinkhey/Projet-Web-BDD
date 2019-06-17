@@ -188,22 +188,57 @@ function updateCartRequest($snowCode, $snowLocationRequest){
             $cartArrayTemp = $_SESSION['cart'];
         }
 
+        require_once "model/LocationsManager.php";
+        $result = getSnowsStock($_SESSION['snowId']);
 
-        require "model/cartManager.php";
-        $cartArrayTemp = updateCart($_SESSION['snowId'],$cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
-        $_SESSION['cart'] = $cartArrayTemp;
-
-        if(!isset($_SESSION['CartErrors']))
+        if($result != false)
         {
-            $test = 0;
-            foreach($_SESSION['cart'] as $key => $value)
+            $quantity = $result[0]['qtyAvailable'] - $snowLocationRequest['inputQuantity'];
+            if($quantity < 0)
             {
-                if($value['code'] == $snowCode and isset($_SESSION['updateCartResult']) and $_SESSION['updateCartResult'] == true)
+                $_SESSION['CartErrors'] = true;
+                snowLeasingRequest($_GET['code']);
+            }
+            else
+            {
+                if(isset($_SESSION['cart']))
                 {
-                    $test++;
-                    if($test > 1)
+                    $testQuantityCart = $_SESSION['cart'][0]['qty'];
+                }
+                else
+                {
+                    $testQuantityCart = 1;
+                }
+
+                if($testQuantityCart > $quantity)
+                {
+                    $_SESSION['CartErrors'] = true;
+                    snowLeasingRequest($_GET['code']);
+                }
+                else
+                {
+                    require "model/cartManager.php";
+                    $cartArrayTemp = updateCart($_SESSION['snowId'],$cartArrayTemp, $snowCode, $snowLocationRequest['inputQuantity'], $snowLocationRequest['inputDays']);
+                    $_SESSION['cart'] = $cartArrayTemp;
+
+                    if(!isset($_SESSION['CartErrors']))
                     {
-                        unset($_SESSION['cart'][$key]);
+                        $test = 0;
+                        foreach($_SESSION['cart'] as $key => $value)
+                        {
+                            if($value['code'] == $snowCode and isset($_SESSION['updateCartResult']) and $_SESSION['updateCartResult'] == true)
+                            {
+                                $test++;
+                                if($test > 1)
+                                {
+                                    unset($_SESSION['cart'][$key]);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        snowLeasingRequest($_GET['code']);
                     }
                 }
             }
