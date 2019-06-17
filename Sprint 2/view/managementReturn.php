@@ -53,6 +53,7 @@ ob_start();
             <tr>
                 <td>
                     <a href="index.php?action=managementLocation"> <input type="submit" value="Vue d'ensemble" class="btn btn-success" name="vueDEnsemble"></a>
+                    <input type="button" value="Enregistrer" class="btn btn-success" name="Save">
                 </td>
             </tr>
         </table>
