@@ -36,15 +36,15 @@ ob_start();
                     if(isset($_SESSION['cart']))
                     {
                         $cartArray = $_SESSION['cart'];
-                        foreach ($cartArray as $article){
+                        foreach ($cartArray as $article => $value){
                             echo "<tr>";
-                            echo "<td>".$article['code']."</td>";
-                            echo "<td>".$article['dateD']."</td>";
+                            echo "<td>".$value['code']."</td>";
+                            echo "<td>".$value['dateD']."</td>";
                             echo "<form method='POST' action='index.php?action=updateCartItem'>";
-                            echo "<td><input type='number' name='uNbD' value='".$article['nbD']."' disabled></td>";
-                            echo "<td><input type='number' name='uQty' value='".$article['qty']."' disabled></td>";
+                            echo "<td><input type='number' name='uNbD' value='".$value['nbD']."' disabled></td>";
+                            echo "<td><input type='number' name='uQty' value='".$value['qty']."' disabled></td>";
 
-                            echo "<td><a href='index.php?action=updateCartRequest&code=".$article['code']."'><img src='view/content/images/delete2.png'></a></td>";
+                            echo "<td><a href='index.php?action=updateCartRequest&code=".$article['code']."&delete=".$article."'><img src='view/content/images/delete2.png'></a></td>";
                             echo "</form></tr>";
                         }
 
