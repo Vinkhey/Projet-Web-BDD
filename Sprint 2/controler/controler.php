@@ -210,8 +210,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
         }
         else
         {
-            $_GET['action'] = "snowLeasingRequest";
-            require "view/snowLeasingRequest.php";
+            snowLeasingRequest($_GET['code']);
         }
     }
 
