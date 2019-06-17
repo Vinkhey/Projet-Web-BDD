@@ -183,6 +183,16 @@ function snowLeasingRequest($snowCode){
  */
 function updateCartRequest($snowCode, $snowLocationRequest){
     $cartArrayTemp = array();
+    if(isset($_GET['delete']))
+    {
+        unset($_SESSION['cart'][$_GET['delete']]);
+
+        if($_SESSION['cart'] == null)
+        {
+            displaySnows();
+        }
+    }
+
     if(($snowLocationRequest) AND ($snowCode)) {
         if (isset($_SESSION['cart'])) {
             $cartArrayTemp = $_SESSION['cart'];
@@ -201,7 +211,7 @@ function updateCartRequest($snowCode, $snowLocationRequest){
             }
             else
             {
-                if(isset($_SESSION['cart']))
+                if(isset($_SESSION['cart']) AND $_SESSION['cart'] != null)
                 {
                     $testQuantityCart = $_SESSION['cart'][0]['qty'];
                 }
