@@ -148,9 +148,6 @@ function displaySnows(){
  * @param none
  */
 function displayASnow($snow_code){
-    if (isset($registerRequest['inputUserEmailAddress'])){
-        //TODO
-    }
     require_once "model/snowsManager.php";
     $snowsResults= getASnow($snow_code);
     require "view/aSnow.php";
@@ -191,6 +188,11 @@ function updateCartRequest($snowCode, $snowLocationRequest){
         {
             displaySnows();
         }
+    }
+
+    if(isset($_POST['modify']))
+    {
+        $_SESSION['cart'][$_GET['modify']] = $_GET['quantity'];
     }
 
     if(($snowLocationRequest) AND ($snowCode)) {
