@@ -29,7 +29,7 @@ ob_start();
             echo "<td>".$article['eMail']."</td>";
             echo "<td>".$article['dateDebut']."</td>";
             echo "<td>".$article['']."</td>";*/
-            //echo "<td><select name='Statut' size='1'><option>Rendu<option>En cours</select></td>"
+            //echo "<td><select name='Statut' size='1'><option>Rendu<option>En cours <option>Rendu partiel</select></td>"
             ?>
         </table>
     </form>
