@@ -17,15 +17,15 @@ ob_start();
     <h2>Gestion des retours</h2>
     <table>
         <tr>
-            <td>Location: </td>
-            <td>Email: </td>
+            <td>Location:  </td>
+            <td>Email:  </td>
         </tr>
         <tr>
-            <td>Prise: </td>
-            <td>Retour: </td>
+            <td>Prise:  </td>
+            <td>Retour:  </td>
         </tr>
         <tr>
-            <td>Statut: </td>
+            <td>Statut:  </td>
         </tr>
     </table>
     <article>
