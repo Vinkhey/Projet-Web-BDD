@@ -35,10 +35,11 @@ ob_start();
                     <th>Location</th><th>Email du client</th><th>Prise</th><th>Retour</th><th>Statut</th>
                 </tr>
                 <?php
+                /** Partie du code encore non fonctionnelle */
                 /*$cartArray = $_SESSION['location'];
                 foreach ($cartArray as $article){
                 echo "<td>".$article['code']."</td>";
-                echo "<td>".$article['quantite']."</td>";
+                echo "<td>".$article['Quantité']."</td>";
                 echo "<td>".$article['dateFin']."</td>";*/
                 echo "<td><select name='Statut' size='1'><option>Rendu<option>En cours</select></td>"
                 ?>

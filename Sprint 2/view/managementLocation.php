@@ -22,6 +22,7 @@ ob_start();
                 <th>Location</th><th>Email du client</th><th>Prise</th><th>Retour</th><th>Statut</th>
             </tr>
             <?php
+            /** Partie du code encore non fonctionnelle */
             /*$cartArray = $_SESSION['location'];
             foreach ($cartArray as $article){
             echo "<td>".$article['idLocations']."</td>";
