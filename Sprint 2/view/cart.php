@@ -29,7 +29,7 @@ ob_start();
 
             <table class="table">
                 <tr>
-                    <th>Code</th><th>Date</th><th>Nombre de jours</th><th>Quantité</th><th>Retirer</th>
+                    <th>Code</th><th>Date</th><th>Nombre de jours</th><th>Quantité</th><th>Retirer / modifier</th>
                 </tr>
                 <?php
                     // Displays cart session's content
@@ -41,10 +41,11 @@ ob_start();
                             echo "<td>".$value['code']."</td>";
                             echo "<td>".$value['dateD']."</td>";
                             echo "<form method='POST' action='index.php?action=updateCartItem'>";
-                            echo "<td><input type='number' name='uNbD' value='".$value['nbD']."' disabled></td>";
-                            echo "<td><input type='number' name='uQty' value='".$value['qty']."' disabled></td>";
+                            echo "<td><input type='number' name='uNbD' value='".$value['nbD']."' required></td>";
+                            echo "<td><input type='number' name='uQty' value='".$value['qty']."' required></td>";
 
-                            echo "<td><a href='index.php?action=updateCartRequest&code=".$article['code']."&delete=".$article."'><img src='view/content/images/delete2.png'></a></td>";
+                            echo "<td><a href='index.php?action=updateCartRequest&code=".$article['code']."&delete=".$article."'><img alt='2' src='view/content/images/delete2.png'></a></td>";
+                            echo "<td><input class=\"btn\" type=\"submit\" value=\"changer\"name=\"modify\"/></td>";
                             echo "</form></tr>";
                         }
 
