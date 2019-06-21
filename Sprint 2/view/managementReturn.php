@@ -32,7 +32,7 @@ ob_start();
         <form method="POST" action="index.php?action=displayCart">
             <table class="table" border="1px">
                 <tr>
-                    <th>Location</th><th>Email du client</th><th>Prise</th><th>Retour</th><th>Statut</th>
+                    <th>Code</th><th>Quantité</th><th>Retour</th><th>Statut</th>
                 </tr>
                 <?php
                 /** Partie du code encore non fonctionnelle */
@@ -41,7 +41,7 @@ ob_start();
                 echo "<td>".$article['code']."</td>";
                 echo "<td>".$article['Quantité']."</td>";
                 echo "<td>".$article['dateFin']."</td>";*/
-                echo "<td><select name='Statut' size='1'><option>Rendu<option>En cours</select></td>"
+                //echo "<td><select name='Statut' size='1'><option>Rendu<option>En cours</select></td>"
                 ?>
             </table>
         </form>
