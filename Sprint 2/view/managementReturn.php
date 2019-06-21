@@ -35,17 +35,12 @@ ob_start();
                     <th>Location</th><th>Email du client</th><th>Prise</th><th>Retour</th><th>Statut</th>
                 </tr>
                 <?php
-                /*if(isset($_SESSION['CartErrors']))
-                {
-                    echo "Erreur sur la quantité demandée";
-                    echo "<br>".$_SESSION['CartErrors']."</br>";
-                    unset($_SESSION['CartErrors']);
-                }
-                 Displays cart session's content
-                $cartArray = $_SESSION['cart'];
+                /*$cartArray = $_SESSION['location'];
                 foreach ($cartArray as $article){
-
-                }*/
+                echo "<td>".$article['code']."</td>";
+                echo "<td>".$article['quantite']."</td>";
+                echo "<td>".$article['dateFin']."</td>";*/
+                echo "<td><select name='Statut' size='1'><option>Rendu<option>En cours</select></td>"
                 ?>
             </table>
         </form>
